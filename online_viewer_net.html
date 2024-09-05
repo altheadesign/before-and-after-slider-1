@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Adjust max-width as needed */
+            overflow: hidden;
+        }
+
+        .slider-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+        }
+
+        .slider-image.before {
+            z-index: 2;
+        }
+
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background-color: #fff;
+            z-index: 3;
+            cursor: ew-resize;
+            pointer-events: none;
+        }
+
+        .slider-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .slider-overlay img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slider-container">
+    <img src="https://static.showit.co/file/1HUABlhIEJ_hQjNzYHbt7w/162263/kiana_corri_presets-1-14.jpg" alt="Before Image" class="slider-image before">
+    <div class="slider-overlay" style="width: 50%;">
+        <img src="https://static.showit.co/file/01GKWvkmi2EsI4mJVUjCAA/162263/kiana_corri_presets-1-15.jpg" alt="After Image">
+    </div>
+    <div class="slider-handle"></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sliderContainer = document.querySelector('.slider-container');
+        const sliderOverlay = sliderContainer.querySelector('.slider-overlay');
+        const sliderHandle = sliderContainer.querySelector('.slider-handle');
+
+        sliderContainer.addEventListener('mousemove', function (e) {
+            const rect = sliderContainer.getBoundingClientRect();
+            const offsetX = e.clientX - rect.left;
+            const percent = (offsetX / rect.width) * 100;
+
+            sliderOverlay.style.width = percent + '%';
+            sliderHandle.style.left = percent + '%';
+        });
+
+        sliderContainer.addEventListener('touchmove', function (e) {
+            const rect = sliderContainer.getBoundingClientRect();
+            const offsetX = e.touches[0].clientX - rect.left;
+            const percent = (offsetX / rect.width) * 100;
+
+            sliderOverlay.style.width = percent + '%';
+            sliderHandle.style.left = percent + '%';
+        });
+    });
+</script>
+
+</body>
+</html>
